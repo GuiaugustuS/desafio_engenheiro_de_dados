@@ -59,7 +59,7 @@ while True:
     if nextPage_token is None:
         break
 
-"""# A consulta nos retorna um Json contendo todas as informações dos vídeos que estão na playlist informada."""
+"""# A consulta nos retorna um Json contendo todas as informações dos vídeos da playlist informada."""
 
 playlist_videos
 
@@ -113,7 +113,7 @@ for i in range(0, len(playlist_videos)):
     currentItem = playlist_videos[i]
     playlist_videos_df.loc[i] = playlist_videos[i]['kind'],playlist_videos[i]['etag'],playlist_videos[i]['id'],playlist_videos[i]['snippet']
 
-"""# Obs: A coluna 'snippet' é uma lista que contém as seguintes informações: 'title', 'description', 'channelId', 'publishedAt', entre outras."""
+"""# Obs: A série/coluna 'snippet' é uma lista que contém as seguintes informações: 'title', 'description', 'channelId', 'publishedAt', entre outras."""
 
 playlist_videos_df
 
@@ -129,17 +129,6 @@ comment = list(map(lambda x: int(x['statistics']['commentCount']), stats))
 
 """# Extraindo a data e hora do processamento"""
 
-playlist_df = pd.DataFrame({'video_id':videoid,
-      'title':videos_title,
-      'published_date':published_date,
-      'extraction_date':extraction_date,
-      'views':views,
-      'likes':liked,
-      'comment':comment})
-playlist_df.head()
-
-"""# Gerando ao dataframe 'playlist_df' com as informações das listas geradas na etapa anterior."""
-
 extraction_date =datetime.now()
 extraction_date = extraction_date.date()
 #extraction_date = datetime.strftime(extraction_date, '%d/%m/%Y')
@@ -150,6 +139,19 @@ published_date = pd.to_datetime(published_date).date
 #published_date = datetime.strftime(published_date, '%d/%m/%Y')
 
 print(f' Data da extração {extraction_date}')
+
+"""# Gerando ao dataframe 'playlist_df' com as informações das listas geradas acima.
+
+"""
+
+playlist_df = pd.DataFrame({'video_id':videoid,
+      'title':videos_title,
+      'published_date':published_date,
+      'extraction_date':extraction_date,
+      'views':views,
+      'likes':liked,
+      'comment':comment})
+playlist_df.head()
 
 """# Exportando o dataframe para csv, e renomenado, e colocando a data atual."""
 
