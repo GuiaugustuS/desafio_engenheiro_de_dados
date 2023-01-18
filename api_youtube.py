@@ -165,3 +165,14 @@ playlist_df.head()
 today = extraction_date.strftime('%d-%m-%Y')
 name = "Extracao_playlist_videos"
 playlist_df.to_csv(f'{name}-{today}.csv', index=False)
+
+"""# Dicionário de dados"""
+
+dict_dados = {'video_id': 'Id único do vídeo',
+              'title': 'Título do vídeo',
+              'published_date':'Data da publicação do vídeo',
+              'extraction_date':'Data da extração dos dados',
+              'views':'Quantidade de visualizações do vídeo',
+              'liked':'Quantidade de curtidas do vídeo',
+              'comment':'Quantidade de comentários do vídeo'}
+print(dict_dados)
