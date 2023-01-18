@@ -20,7 +20,7 @@ from datetime import datetime
 
 api_key = 'AIzaSyDd2Brt7y1WAoZ_f824xjEW4LPtpvNZko8'
 
-"""# Dando permição para realizar as consultas no youtube."""
+"""# Dando permissão para realizar as consultas no youtube."""
 
 youtube = build('youtube', 'v3', developerKey=api_key)
 
@@ -32,7 +32,7 @@ playlistId = 'PL5TJqBvpXQv6SSsEgQrNwpOLTupXPuiMQ'
 playlistName = 'Dicas de Pandas'
 nextPage_token = None
 
-"""# PARÂMETRO E PROPRIEDADES
+"""# PARÂMETROS E PROPRIEDADES
 O parâmetro 'playlistItems', lista os parâmetros que esta consulta suporta.
 
 A propriedade 'snippet' contém vários campos, incluindo as propriedades title, description, position e resourceId. Sê definirmos part=snippet, a resposta da API conterá todas essas propriedades.
@@ -69,11 +69,18 @@ print("Número total de vídeos na Playlist ", len(playlist_videos))
 
 """# Extraindo os id's dos vídeos da playlist."""
 
+# Cada elemento da lista tem um vídeo, dentro deste vídeo tem um snippet, dentro do snippet temos o resourceId e dentro dele temos o videoId.
+
 videos_ids = list(map(lambda x: x['snippet']['resourceId']['videoId'], playlist_videos))
+
+# A função lambda: Recebe de informação o que está antes dos dois pontos, e dá como resposta o retorno desejado.
+# A função map() serve para aplicarmos uma função a cada um dos elementos passados em lista como argumento. Precisamos informar a função que será executada e a lista que contém as informações.
 
 videos_ids
 
 """# Criando uma lista das estatístiscas de cada vídeo tais como, quantidade de visualizações, likes, favoritos e comentários."""
+
+# Cria uma lista que itera sobre cada id de vídeo.
 
 stats = []
 
@@ -87,31 +94,31 @@ stats
 
 import pandas as pd
 
-"""# Criando um datraframe chamado 'stats_df', com as seguintes colunas: 'kind', 'etag', 'id', 'statistics'."""
+"""# Criando um datraframe chamado 'stats_df', com as seguintes colunas: 'etag', 'id', 'statistics'."""
 
-stats_df = pd.DataFrame(columns=['kind','etag','id','statistics',])
+stats_df = pd.DataFrame(columns=['etag','id','statistics',])
 
 """# Inserindo as informações da lista 'stats' no datraframe 'stats_df'"""
 
 for i in range(0, len(stats)):
     currentItem = stats[i]
-    stats_df.loc[i] = stats[i]['kind'],stats[i]['etag'],stats[i]['id'],stats[i]['statistics']
+    stats_df.loc[i] = stats[i]['etag'],stats[i]['id'],stats[i]['statistics']
 
-"""# Obs: A coluna 'statistics' é uma lista que contém as seguintes informações: 'viewCount', 'likeCount', 'favoriteCount', 'commentCount'.
+"""# A coluna 'statistics' é uma lista que contém as seguintes informações: 'viewCount', 'likeCount', 'favoriteCount', 'commentCount'.
 
 """
 
 stats_df
 
-"""# Criando um datraframe chamado 'playlist_videos_df', com as seguintes colunas: 'kind', 'etag', 'id', 'snippet'."""
+"""# Criando um datraframe chamado 'playlist_videos_df', com as seguintes colunas:  'etag', 'id', 'snippet'."""
 
-playlist_videos_df = pd.DataFrame(columns=['kind','etag','id','snippet'])
+playlist_videos_df = pd.DataFrame(columns=['etag','id','snippet'])
 
 """# Inserindo as informações da lista 'playlist_videos' no dataframe 'playlist_videos_df'."""
 
 for i in range(0, len(playlist_videos)):
     currentItem = playlist_videos[i]
-    playlist_videos_df.loc[i] = playlist_videos[i]['kind'],playlist_videos[i]['etag'],playlist_videos[i]['id'],playlist_videos[i]['snippet']
+    playlist_videos_df.loc[i] = playlist_videos[i]['etag'],playlist_videos[i]['id'],playlist_videos[i]['snippet']
 
 """# Obs: A série/coluna 'snippet' é uma lista que contém as seguintes informações: 'title', 'description', 'channelId', 'publishedAt', entre outras."""
 
